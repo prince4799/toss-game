@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cinematic Coin Toss</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+    <!-- Environment Background -->
+    <div id="environment" data-skin="dark"></div>
+
+    <!-- UI Overlay -->
+    <div id="ui-layer">
+        <div class="stats">
+            Heads: <span id="heads-count">0</span><br>
+            Tails: <span id="tails-count">0</span>
+        </div>
+        <div id="result-text">HEADS</div>
+    </div>
+
+    <!-- Cinematic Camera -->
+    <div id="camera-wrapper">
+        
+
+      
+              <!-- Hand Constructed via CSS to match the image reference -->
+        <div id="hand-container">
+            <!-- Arm / Wrist -->
+            <div class="hand-layer wrist"></div>
+            
+            <!-- Watch bridging wrist and hand -->
+            <div class="hand-layer watch-strap">
+                <div class="watch-hole"></div>
+                <div class="watch-buckle"></div>
+                <div class="watch-loop"></div>
+            </div>
+
+            <!-- Main Hand Base (Fleshy part bridging to fingers) -->
+            <div class="hand-layer fist-base"></div>
+
+            <!-- Folded Fingers -->
+            <div class="hand-layer finger-fold finger-4"></div> <!-- Pinky -->
+            <div class="hand-layer finger-fold finger-3"></div> <!-- Ring -->
+            <div class="hand-layer finger-fold finger-2"></div> <!-- Middle -->
+            <div class="hand-layer finger-fold finger-1"></div> <!-- Index -->
+
+           
+
+            <!-- Thumb (Animated on flick) -->
+            <div class="hand-layer thumb-wrapper" id="thumb">
+                <div class="thumb-segment">
+                    <div class="thumb-nail"></div>
+                </div>
+            </div>
+          
+        </div>
+
+        <!-- 3D Coin Container -->
+        <div id="coin-physics-wrapper">
+              <!-- <div class="wait">
+                <span class="wait-mark">!</span>
+            </div> -->
+            <div class="coin" id="coin" data-skin="gold">
+                <div class="coin-face coin-front">H</div>
+                <div class="coin-face coin-back">T</div>
+            </div>
+        </div>
+
+    </div>
+
+<script src='script.js'>
+    
+   </script>
+</body>
+</html>

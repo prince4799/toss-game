@@ -1,0 +1,225 @@
+        /* Base Reset & Mobile Optimization */
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; }
+        body { 
+            background-color: #0a0a0c; 
+            overflow: hidden; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            touch-action: none;
+        }
+
+
+        /* Environments / Background Skins */
+        #environment {
+            position: absolute; width: 100vw; height: 100vh;
+            background: radial-gradient(circle at center, #2a2d34 0%, #0a0a0c 80%);
+            transition: background 0.5s ease;
+            z-index: 1;
+        }
+        #environment[data-skin="casino"] { background: radial-gradient(circle at center, #0f4d22 0%, #051a0b 80%); }
+        #environment[data-skin="cyber"] { background: radial-gradient(circle at center, #2b0f4c 0%, #05010a 80%); }
+
+        /* Camera Wrapper for Cinematic Zoom */
+        #camera-wrapper {
+            position: absolute; width: 100vw; height: 100vh;
+            display: flex; justify-content: center; align-items: flex-end;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            transform-origin: center bottom;
+            z-index: 2;
+        }
+        .camera-zoom-out {
+            transform: scale(0.55) translateY(15%);
+        }
+
+               /* 
+         * HAND RENDERING - CONTINUOUS & REALISTIC
+         */
+        #hand-container {
+            position: absolute; bottom: -80px; left: 50%; 
+            width: 350px; height: 350px;
+            transform: translateX(-30%);
+            transition: transform 0.5s ease, opacity 0.3s ease;
+            animation: idleHand 4s infinite ease-in-out alternate;
+            z-index: 5;
+        }
+        .hide-hand { transform: translateX(-30%) translateY(300px) !important; opacity: 0; }
+        
+        .hand-layer { position: absolute; }
+        
+        /* 1. Wrist & Arm */
+        .wrist {
+            width: 110px; height: 180px;
+            background: linear-gradient(to left, #d88965, #f4b494, #f8c5aa);
+            bottom: 0px; left: 155px;
+            transform: rotate(-35deg);
+            border-radius: 15px;
+            box-shadow: inset -15px -10px 20px rgba(180, 80, 40, 0.3);
+            z-index: 1;
+        }
+
+        /* 2. Main Hand Base / Back of hand */
+        .fist-base {
+            width: 140px; height: 150px;
+            background: radial-gradient(circle at 30% 30%, #f8c5aa, #f4b494 60%, #da8f6d);
+            border-radius: 40px 60px 50px 40px;
+            bottom: 115px; left: 65px;
+            box-shadow: 
+                inset -20px -20px 30px rgba(180, 80, 40, 0.4),
+                inset 10px 10px 20px rgba(255, 255, 255, 0.4);
+            z-index: 2;
+        }
+
+        /* 3. Watch (Overlaps wrist and fist to hide the seam) */
+        .watch-strap {
+            width: 145px; height: 50px;
+            background: linear-gradient(to bottom, #2b2b2b, #4a4a4a, #1a1a1a);
+            bottom: 100px; left: 110px;
+            border-radius: 12px;
+            transform: rotate(-35deg);
+            box-shadow: 
+                -5px 5px 15px rgba(0,0,0,0.4), 
+                inset 0 2px 5px rgba(255,255,255,0.2);
+            z-index: 3;
+        }
+        .watch-buckle {
+            position: absolute; width: 30px; height: 42px;
+            border: 5px solid #d4af37; /* Gold */
+            border-radius: 8px;
+            top: 4px; left: 20px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.5), inset 2px 2px 5px rgba(0,0,0,0.3);
+        }
+        .watch-buckle::after {
+            content: ''; position: absolute; width: 18px; height: 5px; 
+            background: #d4af37; top: 50%; left: -5px; transform: translateY(-50%);
+            border-radius: 3px;
+        }
+        .watch-hole {
+            position: absolute; width: 6px; height: 6px; 
+            background: #000; border-radius: 50%; top: 22px; left: 70px;
+            box-shadow: inset 1px 1px 2px rgba(255,255,255,0.2);
+        }
+        .watch-loop {
+            position: absolute; width: 18px; height: 52px;
+            background: #2b2b2b; top: -1px; left: 95px; border-radius: 4px;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.5), inset 1px 0 3px rgba(255,255,255,0.2);
+        }
+
+        /* 4. Folded Fingers */
+        .finger-fold {
+            background: linear-gradient(to bottom, #f8c5aa, #f4b494 50%, #d88965);
+            border-radius: 30px 20px 20px 30px;
+            position: absolute;
+            box-shadow: 
+                -3px 5px 10px rgba(180, 80, 40, 0.5), 
+                inset -5px -10px 15px rgba(180, 80, 40, 0.4),
+                inset 2px 5px 10px rgba(255,255,255,0.5);
+            z-index: 4;
+        }
+        /* Pinky */
+        .finger-4 { bottom: 125px; left: 45px; width: 85px; height: 40px; z-index: 4; }
+        /* Ring */
+        .finger-3 { bottom: 160px; left: 30px; width: 100px; height: 45px; z-index: 5; }
+        /* Middle */
+        .finger-2 { bottom: 195px; left: 20px; width: 110px; height: 45px; z-index: 6; }
+        /* Index */
+        .finger-1 { bottom: 235px; left: 30px; width: 105px; height: 45px; z-index: 7; }
+
+        /* 5. Fleshy Thumb Base (Crucial for continuity) */
+        .thumb-base {
+            width: 90px; height: 110px;
+            background: radial-gradient(circle at 40% 40%, #f8c5aa, #f4b494 70%, #d88965);
+            border-radius: 50%;
+            bottom: 180px; left: 80px;
+            box-shadow: 
+                -8px 8px 15px rgba(180, 80, 40, 0.3),
+                inset 10px 10px 20px rgba(255,255,255,0.4);
+            z-index: 8;
+        }
+
+        /* 6. Thumb & Animation */
+        .thumb-wrapper {
+            bottom: 245px; left: 60px;
+            width: 120px; height: 50px;
+            transform-origin: right center; /* Pivots from the fleshy base */
+            transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: rotate(-15deg); /* Resting on top of index finger */
+            z-index: 9;
+        }
+        .thumb-segment {
+            width: 120px; height: 55px;
+            background: linear-gradient(to bottom, #f8c5aa, #f4b494 60%, #d88965);
+            border-radius: 30px 25px 25px 30px;
+            position: absolute; right: 0;
+            box-shadow: 
+                -2px 5px 10px rgba(0,0,0,0.15),
+                inset 5px 10px 15px rgba(255,255,255,0.5), 
+                inset -5px -10px 15px rgba(180, 80, 40, 0.4);
+        }
+        .thumb-nail {
+            width: 28px; height: 32px;
+            background: linear-gradient(to bottom, #fce1d2, #f5c7af);
+            border-radius: 12px 18px 18px 12px;
+            position: absolute; left: 8px; top: 12px;
+            box-shadow: 
+                inset -2px -2px 6px rgba(180, 80, 40, 0.4),
+                1px 1px 3px rgba(255,255,255,0.8);
+            border: 1px solid rgba(180, 80, 40, 0.2);
+        }
+
+        /* Flick Animation -> Snaps thumb up and bends it slightly */
+        .flick .thumb-wrapper { 
+            transform: rotate(65deg) translateX(15px) translateY(-15px); 
+        }
+
+        /* 3D Coin & Physics Container */
+        #coin-physics-wrapper {
+            position: absolute; bottom: 250px; left: 50%; 
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        /* 3D Coin Setup */
+        .coin {
+            width: 90px; height: 90px;
+            transform-style: preserve-3d;
+            transition: transform 0s linear;
+        }
+        .coin-face {
+            position: absolute; width: 100%; height: 100%;
+            border-radius: 50%;
+            backface-visibility: hidden;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 35px; font-weight: 900; color: #fff;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.3), 0 5px 15px rgba(0,0,0,0.4);
+            border: 4px solid rgba(255,255,255,0.2);
+        }
+        /* Skins */
+        .coin[data-skin="gold"] .coin-front { background: radial-gradient(circle at 30% 30%, #ffeb73, #ffb300, #b8860b); }
+        .coin[data-skin="gold"] .coin-back { background: radial-gradient(circle at 30% 30%, #ffd700, #d4af37, #996515); transform: rotateX(180deg); }
+        .coin[data-skin="crypto"] .coin-front { background: radial-gradient(circle at 30% 30%, #00f2fe, #4facfe); }
+        .coin[data-skin="crypto"] .coin-back { background: radial-gradient(circle at 30% 30%, #00c6fb, #005bea); transform: rotateX(180deg); }
+
+        /* UI Overlay */
+        #ui-layer {
+            position: absolute; top: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 20; padding: 50px 25px;
+            display: flex; justify-content: space-between; align-items: flex-start;
+        }
+        .stats { 
+            color: rgba(255,255,255,0.8); font-size: 16px; font-weight: bold;
+            text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        #result-text {
+            position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%) scale(0.5);
+            font-size: 70px; font-weight: 900; color: #fff; 
+            text-shadow: 0 10px 30px rgba(0,0,0,0.9), 0 0 20px rgba(255, 215, 0, 0.5);
+            opacity: 0; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .show-result { opacity: 1 !important; transform: translate(-50%, -50%) scale(1) !important; }
+
+        /* Animations */
+        @keyframes idleHand {
+            0% { transform: translateX(-30%) translateY(0px) rotate(0deg); }
+            100% { transform: translateX(-30%) translateY(12px) rotate(1deg); }
+        }
+
+    
